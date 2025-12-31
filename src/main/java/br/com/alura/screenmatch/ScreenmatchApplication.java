@@ -1,16 +1,9 @@
 package br.com.alura.screenmatch;
 
-import br.com.alura.screenmatch.model.DadosEpisodio;
-import br.com.alura.screenmatch.model.DadosSerie;
-import br.com.alura.screenmatch.model.DadosTemporada;
-import br.com.alura.screenmatch.service.ConsumoAPI;
-import br.com.alura.screenmatch.service.ConverteDados;
+import br.com.alura.screenmatch.principal.Principal;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @SpringBootApplication
 public class ScreenmatchApplication implements CommandLineRunner {
@@ -22,26 +15,18 @@ public class ScreenmatchApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		var consumoAPI = new ConsumoAPI();
-		var json = consumoAPI.obterDados("https://www.omdbapi.com/?t=gilmore+girls&apikey=b6bf7d26");
-		System.out.println(json);
 
+		Principal principal = new Principal();
+		principal.exibeMenu();
 
-		ConverteDados conversor = new ConverteDados();
-		DadosSerie dados = conversor.obterDados(json, DadosSerie.class);
-		System.out.println(dados);
+//		List<DadosTemporada> temporadas = new ArrayList<>();
+//
+//		for (int i = 1; i<= dados.totalTemporada(); i++){
+//			json = consumoAPI.obterDados("https://www.omdbapi.com/?t=gilmore+girls&season="+i+"&apikey=b6bf7d26");
+//			DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
+//			temporadas.add(dadosTemporada);
+//		}
+//		temporadas.forEach(System.out::println);
+//	}
+}}
 
-
-		json = consumoAPI.obterDados("https://www.omdbapi.com/?t=gilmore+girls&season=1&episode=2&apikey=b6bf7d26");
-		DadosEpisodio dadosEpisodio = conversor.obterDados(json, DadosEpisodio.class);
-		System.out.println(dadosEpisodio);
-		List<DadosTemporada> temporadas = new ArrayList<>();
-
-		for (int i = 1; i<= dados.totalTemporada(); i++){
-			json = consumoAPI.obterDados("https://www.omdbapi.com/?t=gilmore+girls&season="+i+"&apikey=b6bf7d26");
-			DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
-			temporadas.add(dadosTemporada);
-		}
-		temporadas.forEach(System.out::println);
-	}
-}
