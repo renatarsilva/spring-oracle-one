@@ -10,7 +10,6 @@ public class ScreenmatchApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ScreenmatchApplication.class, args);
-
 	}
 
 	@Override
@@ -19,14 +18,6 @@ public class ScreenmatchApplication implements CommandLineRunner {
 		Principal principal = new Principal();
 		principal.exibeMenu();
 
-//		List<DadosTemporada> temporadas = new ArrayList<>();
-//
-//		for (int i = 1; i<= dados.totalTemporada(); i++){
-//			json = consumoAPI.obterDados("https://www.omdbapi.com/?t=gilmore+girls&season="+i+"&apikey=b6bf7d26");
-//			DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
-//			temporadas.add(dadosTemporada);
-//		}
-//		temporadas.forEach(System.out::println);
 //	}
 }}
 

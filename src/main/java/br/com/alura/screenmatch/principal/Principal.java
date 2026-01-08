@@ -3,8 +3,10 @@ package br.com.alura.screenmatch.principal;
 import br.com.alura.screenmatch.model.DadosSerie;
 import br.com.alura.screenmatch.service.ConsumoAPI;
 import br.com.alura.screenmatch.service.ConverteDados;
-import br.com.alura.screenmatch.service.IConverteDados;
+import br.com.alura.screenmatch.model.DadosTemporada;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
@@ -20,11 +22,20 @@ public class Principal {
     public void exibeMenu(){
         System.out.println("Digite o nome da série para busca");
         var nomeSerie = sc.nextLine();
-
         var json = consumo.obterDados(
         ENDERECO + nomeSerie.replace(" ", "+") + API_KEY);
         DadosSerie dados = conversor.obterDados(json, DadosSerie.class);
         System.out.println(dados);
+
+        		List<DadosTemporada> temporadas = new ArrayList<>();
+
+		for (int i = 1; i<= dados.totalTemporada(); i++){
+            ConsumoAPI consumoAPI = new ConsumoAPI();
+            json = consumoAPI.obterDados("https://www.omdbapi.com/?t=gilmore+girls&season="+i+"&apikey=b6bf7d26");
+			DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
+			temporadas.add(dadosTemporada);
+		}
+		temporadas.forEach(System.out::println);
 
     }
 }
