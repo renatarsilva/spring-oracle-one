@@ -30,8 +30,7 @@ public class Principal {
         		List<DadosTemporada> temporadas = new ArrayList<>();
 
 		for (int i = 1; i<= dados.totalTemporada(); i++){
-            ConsumoAPI consumoAPI = new ConsumoAPI();
-            json = consumoAPI.obterDados("https://www.omdbapi.com/?t=gilmore+girls&season="+i+"&apikey=b6bf7d26");
+            json = consumo.obterDados(ENDERECO + nomeSerie.replace(" ", "+") + "&season=" + i + API_KEY);
 			DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
 			temporadas.add(dadosTemporada);
 		}
