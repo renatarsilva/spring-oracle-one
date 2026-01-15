@@ -1,5 +1,6 @@
 package br.com.alura.screenmatch.principal;
 
+import br.com.alura.screenmatch.model.DadosEpisodio;
 import br.com.alura.screenmatch.model.DadosSerie;
 import br.com.alura.screenmatch.service.ConsumoAPI;
 import br.com.alura.screenmatch.service.ConverteDados;
@@ -11,9 +12,8 @@ import java.util.Scanner;
 
 public class Principal {
 
-    Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
     private ConsumoAPI consumo = new ConsumoAPI();
-
     private ConverteDados conversor = new ConverteDados();
 
     private final String ENDERECO = "https://www.omdbapi.com/?t=";
@@ -22,9 +22,11 @@ public class Principal {
     public void exibeMenu(){
         System.out.println("Digite o nome da série para busca");
         var nomeSerie = sc.nextLine();
+
         var json = consumo.obterDados(
         ENDERECO + nomeSerie.replace(" ", "+") + API_KEY);
         DadosSerie dados = conversor.obterDados(json, DadosSerie.class);
+        System.out.println("O QUE CHEGOU DA API: " + json);
         System.out.println(dados);
 
         		List<DadosTemporada> temporadas = new ArrayList<>();
@@ -36,5 +38,6 @@ public class Principal {
 		}
 		temporadas.forEach(System.out::println);
 
+        temporadas.forEach(t -> t.episodio().forEach(e -> System.out.println(e.titulo())));
     }
 }
